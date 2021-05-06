@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2021 Digital Bazaar, Inc. All rights reserved.
  */
 const path = require('path');
 
@@ -19,7 +19,7 @@ module.exports = function(config) {
     ],
 
     // list of files to exclude
-    exclude: ['test/compatibility.spec.js'],
+    exclude: ['**/compatibility.spec.js'],
 
     // preprocess matching files before serving them to the browser
     // preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
@@ -58,7 +58,7 @@ module.exports = function(config) {
     //   config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-    // enable / disable watching file and executing tests whenever any
+    // enable / disable watching file and executing test whenever any
     // file changes
     autoWatch: false,
 
@@ -68,7 +68,7 @@ module.exports = function(config) {
     browsers: ['ChromeHeadless'],
 
     // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
+    // if true, Karma captures browsers, runs the test and exits
     singleRun: true,
 
     // Concurrency level
