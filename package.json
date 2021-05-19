@@ -1,11 +1,11 @@
 {
-  "name": "@digitalbazaar/ed25519-verification-key-2020",
-  "version": "3.1.1-0",
+  "name": "@digitalcredentials/ed25519-verification-key-2020",
+  "version": "1.0.0",
   "description": "Javascript library for generating and working with Ed25519VerificationKey2020 key pairs, for use with crypto-ld.",
-  "homepage": "https://github.com/digitalbazaar/ed25519-verification-key-2020",
+  "homepage": "https://github.com/digitalcredentials/ed25519-verification-key-2020",
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalbazaar/ed25519-verification-key-2020"
+    "url": "https://github.com/digitalcredentials/ed25519-verification-key-2020"
   },
   "license": "BSD-3-Clause",
   "files": [
@@ -26,8 +26,8 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
+    "@digitalcredentials/base58-universal": "^1.0.0",
     "@stablelib/ed25519": "^1.0.1",
-    "base58-universal": "digitalbazaar/base58-universal#noesm",
     "crypto-ld": "^6.0.0"
   },
   "devDependencies": {
