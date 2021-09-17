@@ -165,5 +165,5 @@ If editing the Readme, please conform to the
 
 ## License
 
-MIT License - DCC - TypeScript compatibility.
-New BSD License (3-clause) © 2020-2021 Digital Bazaar - Initial implementation.
+* MIT License - DCC - TypeScript compatibility.
+* New BSD License (3-clause) © 2020-2021 Digital Bazaar - Initial implementation.
