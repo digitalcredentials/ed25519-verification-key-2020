@@ -78,6 +78,7 @@
     "build": "npm run clear && npm run rollup && ./build-dist.sh",
     "clear": "rimraf dist/ && mkdir dist",
     "prepare": "npm run build",
+    "prepack": "npm run build",
     "rebuild": "npm run clear && npm run build",
     "test": "npm run lint && npm run test-node && npm run test-karma",
     "test-karma": "karma start karma.conf.js",
