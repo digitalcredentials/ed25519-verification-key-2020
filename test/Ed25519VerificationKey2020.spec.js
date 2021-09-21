@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Digital Bazaar, Inc. All rights reserved.
  */
 import chai from 'chai';
-import * as base58btc from 'base58-universal';
+import * as base58btc from '@digitalcredentials/base58-universal';
 import {mockKey, seed} from './mock-data.js';
 import multibase from 'multibase';
 import multicodec from 'multicodec';

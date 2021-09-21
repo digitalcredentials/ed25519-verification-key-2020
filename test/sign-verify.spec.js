@@ -7,7 +7,7 @@ chai.should();
 import {Ed25519VerificationKey2020} from '../lib/index';
 import {mockKey, suites} from './mock-data.js';
 import {stringToUint8Array} from './text-encoder.js';
-import * as base58btc from 'base58-universal';
+import * as base58btc from '@digitalcredentials/base58-universal';
 
 const keyPair = new Ed25519VerificationKey2020({
   controller: 'did:example:1234',
