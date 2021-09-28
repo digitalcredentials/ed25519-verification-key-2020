@@ -1,6 +1,10 @@
 # @digitalcredentials/ed25519-verification-key-2020 ChangeLog
 
-## 2.0.0 - 2021-09-17
+## 3.2.0 - 2021-09-28
+### Added
+- Add support for `JsonWebKey2020` and JWK import/export, and JWK thumbprint.
+
+## 3.1.1 - 2021-09-17
 
 ### Changed
 - **BREAKING**: Synced with [`@digitalbazaar/ed25519-verification-key-2020 v3.1.0` 
