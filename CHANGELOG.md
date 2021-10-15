@@ -1,5 +1,9 @@
 # @digitalcredentials/ed25519-verification-key-2020 ChangeLog
 
+## 3.2.2 - 2021-10-15
+### Added
+- Add some type check validation to toJwk() method.
+
 ## 3.2.0 - 2021-09-28
 ### Added
 - Add support for `JsonWebKey2020` and JWK import/export, and JWK thumbprint.
