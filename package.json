@@ -26,20 +26,20 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "@digitalcredentials/base58-universal": "^1.0.0",
+    "@digitalcredentials/base58-universal": "^1.0.1",
     "@noble/ed25519": "^1.6.0",
     "base64url-universal": "^1.1.0",
     "crypto-ld": "^6.0.0"
   },
   "devDependencies": {
     "@digitalbazaar/ed25519-verification-key-2018": "^3.2.0",
+    "@stablelib/ed25519": "^1.0.2",
     "chai": "^4.3.4",
     "cross-env": "^7.0.3",
-    "eslint": "^7.25.0",
-    "eslint-config-digitalbazaar": "^2.8.0",
-    "eslint-plugin-jsdoc": "^33.1.0",
-    "esm": "^3.2.25",
-    "karma": "^6.3.2",
+    "eslint": "^7.9.0",
+    "eslint-config-digitalbazaar": "^2.0.0",
+    "eslint-plugin-jsdoc": "^30.7.8",
+    "karma": "^5.2.3",
     "karma-babel-preprocessor": "^8.0.1",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.1.0",

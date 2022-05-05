@@ -1,5 +1,14 @@
 # @digitalcredentials/ed25519-verification-key-2020 ChangeLog
 
+## 3.3.0 - 2022-05-27
+### Added
+- Add `toEd255519VerificationKey2018()` instance method, round trip serialization
+  and import to 2018.
+
+### Changed
+- Replace underlying ed25519 implementation with `@noble/ed25519`. This
+  should be a non-breaking change.
+
 ## 3.2.2 - 2021-10-15
 ### Added
 - Add some type check validation to toJwk() method.
