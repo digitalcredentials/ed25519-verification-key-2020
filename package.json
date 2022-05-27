@@ -32,12 +32,13 @@
     "crypto-ld": "^6.0.0"
   },
   "devDependencies": {
+    "@digitalbazaar/ed25519-verification-key-2018": "^3.2.0",
     "chai": "^4.3.4",
     "cross-env": "^7.0.3",
     "eslint": "^7.25.0",
-    "esm": "^3.2.25",
     "eslint-config-digitalbazaar": "^2.8.0",
     "eslint-plugin-jsdoc": "^33.1.0",
+    "esm": "^3.2.25",
     "karma": "^6.3.2",
     "karma-babel-preprocessor": "^8.0.1",
     "karma-chai": "^0.1.0",
