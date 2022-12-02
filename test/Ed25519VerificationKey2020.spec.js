@@ -217,7 +217,7 @@ describe('Ed25519VerificationKey2020', () => {
       result.valid.should.be.false;
       expect(result.error).to.exist;
       result.error.message.should.equal(
-        'The fingerprint does not match the public key.');
+        'Invalid fingerprint encoding (expecting 0xed01 byte prefix).');
     });
 
     it('should reject a numeric fingerprint', async () => {
@@ -235,14 +235,15 @@ describe('Ed25519VerificationKey2020', () => {
 
     it('should reject an improperly encoded fingerprint', async () => {
       const keyPair = await Ed25519VerificationKey2020.generate();
-      const result = keyPair.verifyFingerprint({fingerprint: 'zPUBLICKEYINFO'});
+      const result = keyPair.verifyFingerprint({fingerprint: 'zTESTSTRNG'});
       expect(result).to.exist;
       result.should.be.an('object');
       expect(result.valid).to.exist;
       result.valid.should.be.a('boolean');
       result.valid.should.be.false;
       expect(result.error).to.exist;
-      result.error.message.should.equal('Invalid encoding of fingerprint.');
+      result.error.message.should
+        .equal('Invalid fingerprint encoding (expecting 0xed01 byte prefix).');
     });
 
     it('generates the same fingerprint from the same seed', async () => {
