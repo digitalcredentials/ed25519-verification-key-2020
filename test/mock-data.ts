@@ -4,9 +4,10 @@
 export const mockKey = {
   type: 'Ed25519VerificationKey2020',
   publicKeyMultibase: 'z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T',
-  privateKeyMultibase: 'zrv2EET2WWZ8T1Jbg4fEH5cQxhbUS22XxdweypUbjWVzv1YD6VqYu' +
+  privateKeyMultibase:
+    'zrv2EET2WWZ8T1Jbg4fEH5cQxhbUS22XxdweypUbjWVzv1YD6VqYu' +
     'W6LH7heQCNYQCuoKaDwvv2qCWz3uBzG2xesqmf'
-};
+}
 
 export const suites = [
   {
@@ -15,10 +16,12 @@ export const suites = [
     key: {
       type: 'Ed25519VerificationKey2020',
       publicKeyMultibase: 'z6Mkon3Necd6NkkyfoGoHxid2znGc59LU3K7mubaRcFbLfLX',
-      privateKeyMultibase: 'zruzf4Y29hDp7vLoV3NWzuymGMTtJcQfttAWzESod4wV2fbPv' +
-        'Ep4XtzGp2VWwQSQAXMxDyqrnVurYg2sBiqiu1FHDDM',
+      privateKeyMultibase:
+        'zruzf4Y29hDp7vLoV3NWzuymGMTtJcQfttAWzESod4wV2fbPv' +
+        'Ep4XtzGp2VWwQSQAXMxDyqrnVurYg2sBiqiu1FHDDM'
     },
-    signature: '3Tuhz8eG2jqYG4jUbxt14iMd3r2v2eNLftPTfrZfaaFYn5ta7wP3oYfC1rnDV' +
+    signature:
+      '3Tuhz8eG2jqYG4jUbxt14iMd3r2v2eNLftPTfrZfaaFYn5ta7wP3oYfC1rnDV' +
       'JsLvHAK7j5CmVoXtGoYGL7Lnb5e',
     data: 'node key test'
   },
@@ -28,14 +31,16 @@ export const suites = [
     key: {
       type: 'Ed25519VerificationKey2020',
       publicKeyMultibase: 'z6Mkon3Necd6NkkyfoGoHxid2znGc59LU3K7mubaRcFbLfLX',
-      privateKeyMultibase: 'zruzf4Y29hDp7vLoV3NWzuymGMTtJcQfttAWzESod4wV2fbPv' +
+      privateKeyMultibase:
+        'zruzf4Y29hDp7vLoV3NWzuymGMTtJcQfttAWzESod4wV2fbPv' +
         'Ep4XtzGp2VWwQSQAXMxDyqrnVurYg2sBiqiu1FHDDM'
     },
-    signature: '8PHQSNzgsKadaJ4NaoQYfjKN8DH7TohQ4DLXcWMTuxFVXHhwjpDbsg8KEMJ2x' +
+    signature:
+      '8PHQSNzgsKadaJ4NaoQYfjKN8DH7TohQ4DLXcWMTuxFVXHhwjpDbsg8KEMJ2x' +
       'Jn2n4yP9sCKxuqrKTqMY7uvXDC',
     data: 'browser key test'
   }
-];
+]
 
 export const seed =
-  '8c2114a150a16209c653817acc7f3e7e9c6c6290ae93d6689cbd61bb038cd31b';
+  '8c2114a150a16209c653817acc7f3e7e9c6c6290ae93d6689cbd61bb038cd31b'

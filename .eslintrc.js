@@ -1,25 +1,21 @@
-/*!
- * Copyright (c) 2020 Digital Bazaar, Inc. All rights reserved.
- */
 module.exports = {
   root: true,
-  extends: [
-    'eslint-config-digitalbazaar',
-    'eslint-config-digitalbazaar/jsdoc'
-  ],
-  env: {
-    node: true,
-    browser: true
-  },
-  globals: {
-    globalThis: false
-  },
+  extends: ['standard-with-typescript', 'prettier', 'eslint-config-prettier'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'prettier'],
   parserOptions: {
-    // this is required for dynamic import()
-    ecmaVersion: 2020
+    project: './tsconfig.json'
   },
-  ignorePatterns: ['node_modules', 'dist'],
+  ignorePatterns: ['dist/', 'test'],
   rules: {
-    'jsdoc/check-examples': 0
+    'prettier/prettier': 'off',
+    'arrow-body-style': 'off',
+    'prefer-arrow-callback': 'off',
+    '@typescript-eslint/consistent-type-assertions': 'off',
+    '@typescript-eslint/prefer-ts-expect-error': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/return-await': 'off',
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    'no-empty-pattern': 'off'
   }
-};
+}
