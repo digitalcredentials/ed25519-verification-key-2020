@@ -123,7 +123,7 @@ To verify a fingerprint:
 const fingerprint = 'z6MkszZtxCmA2Ce4vUV132PCuLQmwnaDD5mw2L23fGNnsiX3';
 keyPair.verifyFingerprint({fingerprint});
 // ->
-{valid: true}
+{verified: true}
 ```
 
 ### Creating a signer function
