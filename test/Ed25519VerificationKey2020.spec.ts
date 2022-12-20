@@ -6,7 +6,7 @@ import { base58btc } from '../src/baseX'
 import { mockKey, seed } from './mock-data'
 import * as multibase from 'multibase'
 import * as multicodec from 'multicodec'
-import * as jose from 'jose'
+// import * as jose from 'jose'
 import { Ed25519VerificationKey2018 } from '@digitalbazaar/ed25519-verification-key-2018'
 
 import { Ed25519VerificationKey2020 } from '../src'
