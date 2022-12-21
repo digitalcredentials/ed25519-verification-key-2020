@@ -93,7 +93,7 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     this.privateKeyMultibase = privateKeyMultibase
 
     // set key identifier if controller is provided
-    if (this.controller && !this.id) {
+    if (controller && this.controller && !this.id) {
       this.id = `${this.controller}#${this.fingerprint()}`
     }
   }
@@ -179,7 +179,8 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     id,
     type,
     controller,
-    publicKeyJwk
+    publicKeyJwk,
+    privateKeyJwk
   }: SerializedKeyPair): Promise<Ed25519VerificationKey2020> {
     if (type !== 'JsonWebKey2020') {
       throw new TypeError(`Invalid key type: "${type}".`)
@@ -195,16 +196,35 @@ export class Ed25519VerificationKey2020 extends KeyPair {
       throw new TypeError('"crv" is required to be "Ed25519".')
     }
     const { x: publicKeyBase64Url } = publicKeyJwk
+    const publicKeyBytes = base64url.decode(publicKeyBase64Url as string)
     const publicKeyMultibase = _encodeMbKey(
       MULTICODEC_ED25519_PUB_HEADER,
-      base64url.decode(publicKeyBase64Url as string)
+      publicKeyBytes
     )
 
-    return Ed25519VerificationKey2020.from({
+    const inputKeyDocument: any = {
       id,
       controller,
       publicKeyMultibase
-    })
+    }
+    if (privateKeyJwk) {
+      const { d: privateKeyBase64Url } = privateKeyJwk
+      const privateKeyBytes = base64url.decode(privateKeyBase64Url as string)
+
+      // Concat the private and public key bytes
+      const combinedPrivatePublicBytes = new Uint8Array(
+        privateKeyBytes.length + publicKeyBytes.length
+      )
+      combinedPrivatePublicBytes.set(privateKeyBytes)
+      combinedPrivatePublicBytes.set(publicKeyBytes, privateKeyBytes.length)
+
+      inputKeyDocument.privateKeyMultibase = _encodeMbKey(
+        MULTICODEC_ED25519_PRIV_HEADER,
+        combinedPrivatePublicBytes
+      )
+    }
+
+    return Ed25519VerificationKey2020.from(inputKeyDocument)
   }
 
   /**
@@ -427,14 +447,24 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     | PublicKeyJwk
     | PrivateKeyJwk {
     if (!(publicKey || privateKey)) {
-      throw TypeError('Either a "publicKey" or a "privateKey" is required.')
+      throw new TypeError('Either a "publicKey" or a "privateKey" is required.')
+    }
+    if (!this._publicKeyBuffer) {
+      throw new TypeError('Public key buffer is not set.')
     }
     const jwk: any = { crv: 'Ed25519', kty: 'OKP' }
     if (publicKey && this._publicKeyBuffer) {
       jwk.x = base64url.encode(this._publicKeyBuffer)
     }
     if (privateKey && this._privateKeyBuffer) {
-      jwk.d = base64url.encode(this._privateKeyBuffer)
+      // the private key buffer is a concatenation of <priv key bytes><pub key bytes>
+      // however, the JWK wants just the private key
+      jwk.d = base64url.encode(
+        this._privateKeyBuffer.slice(
+          0,
+          this._privateKeyBuffer.length - this._publicKeyBuffer.length
+        )
+      )
     }
     return jwk
   }
@@ -462,13 +492,17 @@ export class Ed25519VerificationKey2020 extends KeyPair {
    * @returns {Promise<object>} JsonWebKey2020 representation.
    */
   async toJsonWebKey2020(): Promise<SerializedKeyPair> {
-    return {
+    const serialized: any = {
       '@context': 'https://w3id.org/security/jws/v1',
-      id: `${this.controller}#${await this.jwkThumbprint()}`,
       type: 'JsonWebKey2020',
-      controller: this.controller,
       publicKeyJwk: this.toJwk({ publicKey: true })
     }
+    if (this.controller) {
+      serialized.controller = this.controller
+      serialized.id = `${this.controller}#${await this.jwkThumbprint()}`
+    }
+
+    return serialized
   }
 
   /**
