@@ -10,7 +10,7 @@ import {
   randomBytes,
   KeyExportOptions
 } from 'crypto'
-
+import {assertKeyBytes} from './validators'
 import { promisify } from 'util'
 
 const randomBytesAsync = promisify(randomBytes)
@@ -146,11 +146,17 @@ function privateKeyDerEncode({
   if (!(privateKeyBytes != null || seedBytes != null)) {
     throw new TypeError('`privateKeyBytes` or `seedBytes` is required.')
   }
-  if (
-    privateKeyBytes == null &&
-    !(seedBytes instanceof Uint8Array && seedBytes.length === 32)
-  ) {
-    throw new TypeError('`seedBytes` must be a 32 byte Buffer.')
+  if(seedBytes && !privateKeyBytes) {
+    assertKeyBytes({
+      bytes: seedBytes,
+      expectedLength: 32
+    });
+  }
+  if(privateKeyBytes && !seedBytes) {
+    assertKeyBytes({
+      bytes: privateKeyBytes,
+      expectedLength: 64
+    });
   }
   if (
     seedBytes == null &&
@@ -181,8 +187,10 @@ function privateKeyDerEncode({
  * @returns {Buffer} DER Public key Prefix + key bytes.
  */
 function publicKeyDerEncode(publicKeyBytes: Uint8Array): Buffer {
-  if (publicKeyBytes.length !== 32) {
-    throw new TypeError('`publicKeyBytes` must be a 32 byte Buffer.')
-  }
+  assertKeyBytes({
+    bytes: publicKeyBytes,
+    expectedLength: 32,
+    code: 'invalidPublicKeyLength'
+  });
   return Buffer.concat([DER_PUBLIC_KEY_PREFIX, publicKeyBytes])
 }
