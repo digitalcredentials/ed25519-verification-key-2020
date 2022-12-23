@@ -1,5 +1,18 @@
 # @digitalcredentials/ed25519-verification-key-2020 ChangeLog
 
+## 4.0.0 - 2022-12-22
+### Changed
+- Update to upstream `v4.1.0` (use `assertKeyBytes()` etc).
+- **BREAKING**: Convert to Typescript, use [`@digitalcredentials/keypair`](https://github.com/digitalcredentials/keypair)
+  lib instead of `crypto-ld`.
+- Fix `toJwk()` and `fromJsonWebKey2020()` logic (see [issue #5](https://github.com/digitalcredentials/ed25519-verification-key-2020/issues/5))
+
+### Added
+- Public key byte checks have error codes compatible with the `did:key` spec.
+
+### Fixed
+- No longer throw a `TypeError` when passing in a Uint8Array of the wrong length.
+
 ## 3.3.0 - 2022-05-27
 ### Added
 - Add `toEd255519VerificationKey2018()` instance method, round trip serialization

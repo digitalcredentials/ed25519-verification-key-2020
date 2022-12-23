@@ -3,7 +3,7 @@
 [![Node.js CI](https://github.com/digitalcredentials/ed25519-verification-key-2020/workflows/Node.js%20CI/badge.svg)](https://github.com/digitalcredentials/ed25519-verification-key-2020/actions?query=workflow%3A%22Node.js+CI%22)
 [![NPM Version](https://img.shields.io/npm/v/@digitalcredentials/ed25519-verification-key-2020.svg)](https://npm.im/@digitalcredentials/ed25519-verification-key-2020)
 
-> Javascript library for generating and working with Ed25519VerificationKey2020 key pairs, for use with crypto-ld.
+> Typescript/Javascript library for generating and working with Ed25519VerificationKey2020 key pairs, for use with crypto-ld.
 
 ## Table of Contents
 
@@ -17,14 +17,14 @@
 
 ## Background
 
-(Forked from [`digitalbazaar/ed25519-verification-key-2020` v3.1.0](https://github.com/digitalbazaar/ed25519-verification-key-2020)
+(Forked from [`digitalbazaar/ed25519-verification-key-2020` v4.1.0](https://github.com/digitalbazaar/ed25519-verification-key-2020)
 to provide TypeScript compatibility.)
 
 For use with:
 
 * [`@digitalcredentials/ed25519-signature-2020`](https://github.com/digitalcredentials/ed25519-signature-2020) `^2.0.0`
-  crypto suite (with [`jsonld-signatures`](https://github.com/digitalcredentials/jsonld-signatures) `^2.0.0`)
-* [`@digitalcredentials/vc`](https://github.com/digitalcredentials/vc-js) `^2.0.0`
+  crypto suite (with [`linked-data-integrity`](https://github.com/digitalcredentials/linked-data-integrity))
+* [`@digitalcredentials/vc`](https://github.com/digitalcredentials/vc) `^2.0.0`
 
 See also (related specs):
 
@@ -37,7 +37,7 @@ your system will largely depend on your design decisions.
 
 ## Install
 
-- Node.js 14+ is required.
+- Node.js 16+ is required.
 
 To install locally (for development):
 
@@ -152,7 +152,7 @@ const keyPair = Ed25519VerificationKey2020.generate();
 
 const {verify} = keyPair.verifier();
 
-const valid = await verify({data, signature});
+const verified = await verify({data, signature});
 // true
 ```
 
