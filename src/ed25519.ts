@@ -7,13 +7,14 @@ import {
   createHash,
   createPrivateKey,
   createPublicKey,
-  randomBytes,
   KeyExportOptions
 } from 'crypto'
-import {assertKeyBytes} from './validators'
-import { promisify } from 'util'
+import { assertKeyBytes } from './validators'
 
-const randomBytesAsync = promisify(randomBytes)
+const crypto = globalThis.crypto
+if (typeof crypto.getRandomValues === 'undefined') {
+  throw new Error('Environment does not provide "crypto.getRandomValues".')
+}
 
 // used to export node's public keys to buffers
 const publicKeyEncoding: KeyExportOptions<any> = {
@@ -61,8 +62,11 @@ async function generateKeyPairFromSeed(
 
 // generates an ed25519 key using a random seed
 async function generateKeyPair(): Promise<EdKeyPair> {
-  const seed = await randomBytesAsync(32)
-  return generateKeyPairFromSeed(seed)
+  const seed = new Uint8Array(32)
+  crypto.getRandomValues(seed)
+  const keyPair = await generateKeyPairFromSeed(seed)
+  seed.fill(0)
+  return keyPair
 }
 
 async function signData(

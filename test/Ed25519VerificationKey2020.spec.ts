@@ -6,9 +6,10 @@ import { base58btc } from '../src/baseX'
 import { mockKey, seed } from './mock-data'
 import * as multibase from 'multibase'
 import * as multicodec from 'multicodec'
+// @ts-ignore
 import { Ed25519VerificationKey2018 } from '@digitalbazaar/ed25519-verification-key-2018'
 
-import { Ed25519VerificationKey2020 } from '../src'
+import { Ed25519VerificationKey2020 } from '../src/index.js'
 
 // multibase base58-btc header
 const MULTIBASE_BASE58BTC_HEADER = 'z'
@@ -224,7 +225,8 @@ describe('Ed25519VerificationKey2020', () => {
       expect(result.verified).to.exist
       expect(result.verified).to.be.false
       expect(result.error).to.exist
-      expect(result.error.message).to.equal('"fingerprint" must be a multibase encoded string.')
+      expect(result?.error?.message)
+          .to.equal('"fingerprint" must be a multibase encoded string.')
     })
 
     it('should reject an invalid fingerprint', async () => {
@@ -240,7 +242,7 @@ describe('Ed25519VerificationKey2020', () => {
       expect(result.error).to.exist
 
       expect(result.error).to.exist
-      expect(result.error.message).to.equal(
+      expect(result?.error?.message).to.equal(
         'Invalid fingerprint encoding (expecting 0xed01 byte prefix).'
       )
     })
@@ -254,7 +256,7 @@ describe('Ed25519VerificationKey2020', () => {
       expect(result.error).to.exist
 
       expect(result.error).to.exist
-      expect(result.error.message).to.equal(
+      expect(result?.error?.message).to.equal(
         'Invalid fingerprint encoding (expecting 0xed01 byte prefix).'
       )
     })

@@ -4,9 +4,9 @@
 import * as ed25519 from '@noble/ed25519'
 
 // browser MUST provide "crypto.getRandomValues"
-const crypto = global.crypto
+const crypto = globalThis.crypto
 if (typeof crypto.getRandomValues === 'undefined') {
-  throw new Error('Browser does not provide "crypto.getRandomValues".')
+  throw new Error('Environment does not provide "crypto.getRandomValues".')
 }
 
 interface EdKeyPair {

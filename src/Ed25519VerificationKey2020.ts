@@ -1,19 +1,22 @@
 /*!
  * Copyright (c) 2021 Digital Bazaar, Inc. All rights reserved.
  */
+import {
+  IVerificationResult, KeyPair
+} from '@digitalcredentials/keypair'
+import {
+  IJsonWebKey,
+  IJsonWebKeyPair2020,
+  IJsonWebPublicKey,
+  IKeyPairCore,
+  ISigner,
+  IVerificationKeyPair2018,
+  IVerificationKeyPair2020,
+  IVerifier,
+} from '@digitalcredentials/ssi'
 
 import { base58btc, base64url } from './baseX'
 import ed25519 from './ed25519'
-import {
-  GenerateKeyPairOptions,
-  KeyPair,
-  PublicKeyJwk,
-  PrivateKeyJwk,
-  SerializedKeyPair,
-  Signer,
-  VerificationResult,
-  Verifier
-} from '@digitalcredentials/keypair'
 
 const SUITE_ID = 'Ed25519VerificationKey2020'
 // multibase base58-btc header
@@ -22,6 +25,10 @@ const MULTIBASE_BASE58BTC_HEADER = 'z'
 const MULTICODEC_ED25519_PUB_HEADER = new Uint8Array([0xed, 0x01])
 // multicodec ed25519-priv header as varint
 const MULTICODEC_ED25519_PRIV_HEADER = new Uint8Array([0x80, 0x26])
+
+export interface GenerateKeyPairOptions extends IKeyPairCore {
+  seed?: Uint8Array
+}
 
 export class Ed25519VerificationKey2020 extends KeyPair {
   // Used by CryptoLD harness's fromKeyId() method.
@@ -61,13 +68,7 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     revoked,
     publicKeyMultibase,
     privateKeyMultibase
-  }: {
-    id?: string
-    controller?: string
-    revoked?: string
-    publicKeyMultibase?: string
-    privateKeyMultibase?: string
-  } = {}) {
+  }: IVerificationKeyPair2020 = {}) {
     super({ id, controller, revoked })
     this.type = SUITE_ID
     if (!publicKeyMultibase) {
@@ -113,7 +114,7 @@ export class Ed25519VerificationKey2020 extends KeyPair {
    * @returns {Promise<Ed25519VerificationKey2020>} An Ed25519 Key Pair.
    */
   static async from(
-    options: SerializedKeyPair
+    options: IVerificationKeyPair2020 | IJsonWebKeyPair2020
   ): Promise<Ed25519VerificationKey2020> {
     if (options.type === 'Ed25519VerificationKey2018') {
       return Ed25519VerificationKey2020.fromEd25519VerificationKey2018({
@@ -139,11 +140,14 @@ export class Ed25519VerificationKey2020 extends KeyPair {
   static fromEd25519VerificationKey2018({
     keyPair
   }: {
-    keyPair: any
+    keyPair: IVerificationKeyPair2018
   }): Ed25519VerificationKey2020 {
+    if (!keyPair.publicKeyBase58) {
+      throw new Error('keyPair.publicKeyBase58 property is required.')
+    }
     const publicKeyMultibase = _encodeMbKey(
-      MULTICODEC_ED25519_PUB_HEADER,
-      base58btc.decode(keyPair.publicKeyBase58)
+        MULTICODEC_ED25519_PUB_HEADER,
+        base58btc.decode(keyPair.publicKeyBase58)
     )
     const keyPair2020 = new Ed25519VerificationKey2020({
       id: keyPair.id,
@@ -181,7 +185,7 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     controller,
     publicKeyJwk,
     privateKeyJwk
-  }: SerializedKeyPair): Promise<Ed25519VerificationKey2020> {
+  }: IJsonWebKeyPair2020): Promise<Ed25519VerificationKey2020> {
     if (type !== 'JsonWebKey2020') {
       throw new TypeError(`Invalid key type: "${type}".`)
     }
@@ -202,7 +206,7 @@ export class Ed25519VerificationKey2020 extends KeyPair {
       publicKeyBytes
     )
 
-    const inputKeyDocument: any = {
+    const inputKeyDocument: IVerificationKeyPair2020 = {
       id,
       controller,
       publicKeyMultibase
@@ -351,13 +355,13 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     publicKey?: boolean
     privateKey?: boolean
     includeContext?: boolean
-  } = {}): SerializedKeyPair {
+  } = {}): IVerificationKeyPair2020 {
     if (!(publicKey || privateKey)) {
       throw new TypeError(
         'Export requires specifying either "publicKey" or "privateKey".'
       )
     }
-    const exportedKey: any = {
+    const exportedKey: IVerificationKeyPair2020 = {
       id: this.id,
       type: this.type
     }
@@ -399,13 +403,13 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     publicKey?: boolean
     privateKey?: boolean
     includeContext?: boolean
-  } = {}): SerializedKeyPair {
+  } = {}): IVerificationKeyPair2018 {
     if (!(publicKey || privateKey)) {
       throw new TypeError(
         'Export requires specifying either "publicKey" or "privateKey".'
       )
     }
-    const exportedKey: any = {
+    const exportedKey: IVerificationKeyPair2018 = {
       id: this.id,
       type: 'Ed25519VerificationKey2018'
     }
@@ -444,15 +448,14 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     publicKey = true,
     privateKey = false
   }: { publicKey?: boolean; privateKey?: boolean } = {}):
-    | PublicKeyJwk
-    | PrivateKeyJwk {
+      IJsonWebKey {
     if (!(publicKey || privateKey)) {
       throw new TypeError('Either a "publicKey" or a "privateKey" is required.')
     }
     if (!this._publicKeyBuffer) {
       throw new TypeError('Public key buffer is not set.')
     }
-    const jwk: any = { crv: 'Ed25519', kty: 'OKP' }
+    const jwk: IJsonWebKey = { crv: 'Ed25519', kty: 'OKP' }
     if (publicKey && this._publicKeyBuffer) {
       jwk.x = base64url.encode(this._publicKeyBuffer)
     }
@@ -491,8 +494,8 @@ export class Ed25519VerificationKey2020 extends KeyPair {
    *
    * @returns {Promise<object>} JsonWebKey2020 representation.
    */
-  async toJsonWebKey2020(): Promise<SerializedKeyPair> {
-    const serialized: any = {
+  async toJsonWebKey2020(): Promise<IJsonWebPublicKey> {
+    const serialized: IJsonWebKeyPair2020 = {
       '@context': 'https://w3id.org/security/jws/v1',
       type: 'JsonWebKey2020',
       publicKeyJwk: this.toJwk({ publicKey: true })
@@ -521,18 +524,13 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     fingerprint
   }: {
     fingerprint: string
-  }): VerificationResult {
+  }): IVerificationResult {
     // fingerprint should have multibase base58-btc header
-    if (
-      !(
-        typeof fingerprint === 'string' &&
-        fingerprint[0] === MULTIBASE_BASE58BTC_HEADER
-      )
-    ) {
+    if (fingerprint[0] !== MULTIBASE_BASE58BTC_HEADER) {
       return {
         error: new Error('"fingerprint" must be a multibase encoded string.'),
         verified: false
-      } as VerificationResult
+      } as IVerificationResult
     }
     if (!this._publicKeyBuffer) {
       throw new TypeError('Public key buffer is not set.')
@@ -545,7 +543,7 @@ export class Ed25519VerificationKey2020 extends KeyPair {
         throw new TypeError('Invalid encoding of fingerprint.')
       }
     } catch (e: any) {
-      return { error: e, verified: false } as VerificationResult
+      return { error: e, verified: false } as IVerificationResult
     }
 
     const buffersEqual = _isEqualBuffer(
@@ -564,12 +562,12 @@ export class Ed25519VerificationKey2020 extends KeyPair {
           'Invalid fingerprint encoding (expecting 0xed01 byte prefix).'
         ),
         verified: false
-      } as VerificationResult
+      } as IVerificationResult
     }
-    return { verified } as VerificationResult
+    return { verified } as IVerificationResult
   }
 
-  signer(): Signer {
+  signer(): ISigner {
     const privateKeyBuffer = this._privateKeyBuffer
 
     return {
@@ -583,7 +581,7 @@ export class Ed25519VerificationKey2020 extends KeyPair {
     }
   }
 
-  verifier(): Verifier {
+  verifier(): IVerifier {
     const publicKeyBuffer = this._publicKeyBuffer
 
     return {
