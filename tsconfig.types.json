@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "es2020",
-    "lib": ["es2020", "dom"],
-    "module": "commonjs",
+    "target": "es2022",
+    "lib": ["es2022", "dom"],
+    "module": "es2022",
     "moduleResolution": "node",
     "outDir": "dist",
     "noImplicitAny": true,
@@ -13,18 +13,10 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "src/declarations.d.ts",
-      "./node_modules/@types"
-    ]
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "dist/src"
   },
-  "ts-node": {
-    "files": true
-  },
-  "include": [
-    "src/**/*",
-    ".eslintrc.js",
-    "karma.conf.js"
-  ],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test"]
 }
