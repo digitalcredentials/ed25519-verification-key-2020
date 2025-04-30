@@ -1,6 +1,6 @@
 {
   "name": "@digitalcredentials/ed25519-verification-key-2020",
-  "version": "4.0.0",
+  "version": "5.0.0-beta.1",
   "description": "Javascript library for generating and working with Ed25519VerificationKey2020 key pairs, for use with crypto-ld.",
   "scripts": {
     "build-esm": "tsc -p tsconfig.esm.json",
@@ -28,14 +28,11 @@
     "README.md",
     "LICENSE"
   ],
-  "type": "module",
-  "exports": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
   "dependencies": {
-    "@digitalcredentials/ssi": "^3.0.1",
-    "@digitalcredentials/keypair": "^2.0.2",
-    "@noble/ed25519": "^1.7.1",
-    "base-x": "^4.0.0"
+    "@digitalcredentials/ssi": "^3.0.4",
+    "@digitalcredentials/keypair": "^2.0.5",
+    "@noble/ed25519": "^1.7.5",
+    "base-x": "^5.0.1"
   },
   "devDependencies": {
     "@digitalbazaar/ed25519-verification-key-2018": "^3.2.0",
@@ -62,6 +59,15 @@
     "ts-node": "^10.9.1",
     "typescript": "5.2.2"
   },
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "browser": {
     "buffer": false,
     "crypto": false,
@@ -79,6 +85,6 @@
     "./dist/ed25519.js": "./dist/ed25519-reactnative.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   }
 }
