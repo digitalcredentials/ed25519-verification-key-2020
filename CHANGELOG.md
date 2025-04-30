@@ -1,5 +1,10 @@
 # @digitalcredentials/ed25519-verification-key-2020 ChangeLog
 
+## 5.0.0 -
+### Changed
+- Update to latest versions of `keypair`, `base-X` and `ssi` libraries.
+- **BREAKING**: Drop CommonJS export option. (Now ESM only.)
+
 ## 4.0.0 - 2022-12-22
 ### Changed
 - Update to upstream `v4.1.0` (use `assertKeyBytes()` etc).
@@ -33,7 +38,7 @@
 ## 3.1.1 - 2021-09-17
 
 ### Changed
-- **BREAKING**: Synced with [`@digitalbazaar/ed25519-verification-key-2020 v3.1.0` 
+- **BREAKING**: Synced with [`@digitalbazaar/ed25519-verification-key-2020 v3.1.0`
   (see its CHANGELOG)](https://github.com/digitalbazaar/ed25519-verification-key-2020/blob/main/CHANGELOG.md#310---2021-06-24)
 - Removed `esm` runtime transpiler usage, make compatible with TypeScript.
 

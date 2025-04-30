@@ -2,8 +2,8 @@
  * Copyright (c) 2020 Digital Bazaar, Inc. All rights reserved.
  */
 import { expect } from 'chai'
-import { base58btc } from '../src/baseX'
-import { mockKey, seed } from './mock-data'
+import { base58btc } from '../src/baseX.js'
+import { mockKey, seed } from './mock-data.js'
 import * as multibase from 'multibase'
 import * as multicodec from 'multicodec'
 // @ts-ignore

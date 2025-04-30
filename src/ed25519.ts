@@ -9,7 +9,7 @@ import {
   createPublicKey,
   KeyExportOptions
 } from 'crypto'
-import { assertKeyBytes } from './validators'
+import { assertKeyBytes } from './validators.js'
 
 const crypto = globalThis.crypto
 if (typeof crypto.getRandomValues === 'undefined') {

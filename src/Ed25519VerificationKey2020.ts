@@ -15,8 +15,8 @@ import {
   IVerifier,
 } from '@digitalcredentials/ssi'
 
-import { base58btc, base64url } from './baseX'
-import ed25519 from './ed25519'
+import { base58btc, base64url } from './baseX.js'
+import ed25519 from './ed25519.js'
 
 const SUITE_ID = 'Ed25519VerificationKey2020'
 // multibase base58-btc header
