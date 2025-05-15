@@ -1,6 +1,6 @@
 {
   "name": "@digitalcredentials/ed25519-verification-key-2020",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0-beta.2",
   "description": "Javascript library for generating and working with Ed25519VerificationKey2020 key pairs, for use with crypto-ld.",
   "scripts": {
     "build-esm": "tsc -p tsconfig.esm.json",
@@ -32,7 +32,7 @@
     "@digitalcredentials/ssi": "^3.0.4",
     "@digitalcredentials/keypair": "^2.0.5",
     "@noble/ed25519": "^1.7.5",
-    "base-x": "^5.0.1"
+    "base-x": "^4.0.1"
   },
   "devDependencies": {
     "@digitalbazaar/ed25519-verification-key-2018": "^3.2.0",
