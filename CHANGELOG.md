@@ -2,7 +2,7 @@
 
 ## 5.0.0 -
 ### Changed
-- Update to latest versions of `keypair`, `base-X` and `ssi` libraries.
+- Update to latest versions of `keypair` and `ssi` libraries.
 - **BREAKING**: Drop CommonJS export option. (Now ESM only.)
 
 ## 4.0.0 - 2022-12-22
