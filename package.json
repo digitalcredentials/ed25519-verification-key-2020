@@ -19,7 +19,7 @@
   "homepage": "https://github.com/digitalcredentials/ed25519-verification-key-2020",
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalcredentials/ed25519-verification-key-2020"
+    "url": "git+https://github.com/digitalcredentials/ed25519-verification-key-2020.git"
   },
   "license": "BSD-3-Clause",
   "files": [
