@@ -37,7 +37,7 @@ your system will largely depend on your design decisions.
 
 ## Install
 
-- Node.js 16+ is required.
+ - Node.js 20+ is required.
 
 To install locally (for development):
 
