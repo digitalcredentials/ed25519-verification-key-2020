@@ -3,10 +3,10 @@
  */
 import { expect } from 'chai'
 
-import { Ed25519VerificationKey2020 } from '../src'
-import { mockKey, suites } from './mock-data'
-import { stringToUint8Array } from './text-encoder'
-import { base58btc } from '../src/baseX'
+import { Ed25519VerificationKey2020 } from '../src/index.js'
+import { mockKey, suites } from './mock-data.js'
+import { stringToUint8Array } from './text-encoder.js'
+import { base58btc } from '../src/baseX.js'
 
 const keyPair = new Ed25519VerificationKey2020({
   controller: 'did:example:1234',

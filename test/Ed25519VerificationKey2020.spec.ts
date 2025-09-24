@@ -6,8 +6,9 @@ import { base58btc } from '../src/baseX.js'
 import { mockKey, seed } from './mock-data.js'
 import * as multibase from 'multibase'
 import * as multicodec from 'multicodec'
-// @ts-ignore
-import { Ed25519VerificationKey2018 } from '@digitalbazaar/ed25519-verification-key-2018'
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+const { Ed25519VerificationKey2018 } = require('@digitalbazaar/ed25519-verification-key-2018')
 
 import { Ed25519VerificationKey2020 } from '../src/index.js'
 
