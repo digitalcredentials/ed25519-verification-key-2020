@@ -3,8 +3,8 @@
  */
 import { expect } from 'chai'
 
-import { Ed25519VerificationKey2020 } from '../src'
-import { stringToUint8Array } from './text-encoder'
+import { Ed25519VerificationKey2020 } from '../src/index.js'
+import { stringToUint8Array } from './text-encoder.js'
 import * as StableLibEd25519 from '@stablelib/ed25519'
 import { randomBytes } from 'crypto'
 
