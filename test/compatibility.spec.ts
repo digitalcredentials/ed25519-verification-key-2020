@@ -31,6 +31,7 @@ describe('compatibility', () => {
       const data = stringToUint8Array('ed25519 key test')
       const seed = await randomBytesAsync(32)
       const libraryNodeKey = await Ed25519VerificationKey2020.generate({ seed })
+      libraryNodeKey.id = '12345'
       const signature = await libraryNodeKey.signer().sign({ data })
       const { publicKey } = await StableLibEd25519.generateKeyPairFromSeed(seed)
       const result = await StableLibEd25519.verify(publicKey, data, signature)
