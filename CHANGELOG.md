@@ -1,8 +1,14 @@
 # @digitalcredentials/ed25519-verification-key-2020 ChangeLog
 
+## 5.1.0 -
+### Changed
+- Update to `@digitalcredentials/keypair@3.0.0` and
+  `@digitalcredentials/ssi@5.2.0` libraries.
+
 ## 5.0.0 -
 ### Changed
 - Update to latest versions of `keypair` and `ssi` libraries.
+  `signer.id` is now required.
 - **BREAKING**: Drop CommonJS export option. (Now ESM only.)
 
 ## 4.0.0 - 2022-12-22

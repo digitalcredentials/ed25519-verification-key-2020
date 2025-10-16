@@ -1,4 +1,5 @@
 /*!
+ * Copyright (c) 2025 Digital Credentials Consortium (Typescript conversion).
  * Copyright (c) 2021 Digital Bazaar, Inc. All rights reserved.
  */
 import {
@@ -569,6 +570,10 @@ export class Ed25519VerificationKey2020 extends KeyPair {
 
   signer(): ISigner {
     const privateKeyBuffer = this._privateKeyBuffer
+
+    if (!this.id) {
+      throw new Error('A signer() requires a key id to be set.')
+    }
 
     return {
       async sign({ data }) {

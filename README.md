@@ -54,8 +54,8 @@ npm install
 To generate a new public/private key pair:
 
 * `{string} [controller]` Optional controller URI or DID to initialize the
-  generated key. (This will also init the key id.) 
-* `{string} [seed]` Optional deterministic seed value from which to generate the 
+  generated key. (This will also init the key id.)
+* `{string} [seed]` Optional deterministic seed value from which to generate the
   key.
 
 ```js
@@ -82,7 +82,7 @@ To export just the public key of a pair:
 ```js
 await keyPair.export({publicKey: true});
 // ->
-{ 
+{
   type: 'Ed25519VerificationKey2020',
   id: 'did:example:1234#z6MkszZtxCmA2Ce4vUV132PCuLQmwnaDD5mw2L23fGNnsiX3',
   controller: 'did:example:1234',
@@ -158,7 +158,7 @@ const verified = await verify({data, signature});
 
 ### Converting to and from previous Ed25519VerificationKey2018 key type
 
-If you have serialized and stored keys of the previous 
+If you have serialized and stored keys of the previous
 `Ed25519VerificationKey2018` key type (for example, generated using
 the [`ed25519-verification-key-2018`](https://github.com/digitalbazaar/ed25519-verification-key-2018))
 library, or using the `Ed25519KeyPair` keys bundled with `crypto-ld v3.x`),
@@ -166,7 +166,7 @@ things to keep in mind:
 
 * Instances of those key types still contain the same key material, the only
   thing that has changed from the 2018 suite to the 2020 suite is the way the public
-  and private key material is serialized when exporting. The 2018 suite key 
+  and private key material is serialized when exporting. The 2018 suite key
   types serialize using the `publicKeyBase58` and `privateKeyBase58` properties,
   and the 2020 suite key (this repo) serializes using corresponding
   `publicKeyMultibase` and `privateKeyMultibase` property.
